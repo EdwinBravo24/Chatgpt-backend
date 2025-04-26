@@ -21,7 +21,7 @@ if (!process.env.OPENAI_API_KEY) {
   console.log('1. Crea un archivo .env en la carpeta backend');
   console.log('2. Añade la línea: OPENAI_API_KEY=tu-api-key-de-openai');
   console.log('3. Reinicia el servidor\n');
-  
+
   // Verificar si existe el archivo .env
   const envPath = path.join(__dirname, '.env');
   if (!fs.existsSync(envPath)) {
@@ -30,14 +30,14 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chat-gpt-app';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('✅ MongoDB conectado'))
@@ -48,7 +48,7 @@ app.use('/api/chat', chatRoutes);
 
 // Ruta para probar el servidor
 app.get('/', (req, res) => {
-  res.json({ 
+  res.json({
     message: 'API de ChatGPT funcionando correctamente',
     status: 'OpenAI configurado con clave fija en el controlador'
   });
