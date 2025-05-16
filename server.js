@@ -6,6 +6,7 @@ import { router as chatRoutes } from './routes/chatRoutes.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { router as auditoriumRoutes } from './routes/auditoriumRoutes.js';
 
 // Obtener el directorio actual
 const __filename = fileURLToPath(import.meta.url);
@@ -45,15 +46,17 @@ mongoose.connect(MONGODB_URI)
 
 // Rutas
 app.use('/api/chat', chatRoutes);
-
+app.use('/api/auditoriums', auditoriumRoutes); // Agrega esta línea
 // Ruta para probar el servidor
 app.get('/', (req, res) => {
   res.json({
-    message: 'API de ChatGPT funcionando correctamente',
-    status: 'OpenAI configurado con clave fija en el controlador'
+    message: 'API de Auditorios funcionando correctamente',
+    endpoints: {
+      auditoriums: '/api/auditoriums',
+      chat: '/api/chat'
+    }
   });
 });
-
 // Iniciar el servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
